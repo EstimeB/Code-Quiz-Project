@@ -1,0 +1,31 @@
+body {
+    background-color: rgb(200, 220, 226);
+}
+.header {
+    padding: 30px;
+    background-color: rgb(152, 153, 207);
+    font-size: 18px;
+}
+.main {
+    text-align: center;
+    border: solid;
+    border-width: 2px;
+    width: 50%;
+    margin: auto;
+    position: relative;
+    box-shadow: 15px 15px 10px;
+    border-color: rgb(136, 137, 194);
+    padding: 20px;
+    flex: 1 1 auto;
+
+}
+.sbtn {
+    background-color: rgb(152, 153, 207);
+}
+.rbtn {
+    font-size: 18px;
+    position: relative;
+    bottom: 61.5px;
+    padding: 20px;
+    float: right;
+}
