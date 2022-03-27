@@ -6,8 +6,7 @@ body {
     background-color: rgb(152, 153, 207);
     font-size: 18px;
 }
-.main {
-    text-align: center;
+#starting_point {
     border: solid;
     border-width: 2px;
     width: 50%;
@@ -20,12 +19,46 @@ body {
 
 }
 .sbtn {
+    position: relative;
+    left: 37%;
     background-color: rgb(152, 153, 207);
+    padding: 7px;
+    width: 25%;
+}
+#next_btn {
+    position: relative;
+    left: 37%;
+    background-color: rgb(152, 153, 207);
+    padding: 7px;
+    width: 25%;
 }
 .rbtn {
     font-size: 18px;
     position: relative;
-    bottom: 61.5px;
-    padding: 20px;
+    bottom: 40.5px;
+    padding: 10px;
     float: right;
+    background-color: rgb(124, 124, 202);
+}
+.abtn_features {
+    display: grid;
+    gap: 6px;
+    padding: 10px;
+    padding: 7px;
+    width: 50%;
+}
+#abtn:hover {
+    background-color: rgb(124, 124, 202);
+}
+#abtn.correct {
+    --hue: var(--hue-correct);
+}
+#abtn.wrong {
+    --hue: var(--hue-wrong);
+}
+#title {
+    text-align: center;
+}
+#q-and-ans {
+    text-align: center;
 }

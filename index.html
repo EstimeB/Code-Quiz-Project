@@ -12,21 +12,35 @@
 <body>
     <div class="body">
         <Header class="header">
-            <div id="highscores">
-                <p>Highscores<p>
+            <div class="highscore_link">
+                <a id="highscore_link" href="#">Highscores</a>
             </div>
             <div id="time">Remaining Time: <span id="time_display">07:00</span></div>
-            <div class="rbtn" id="restart_btn">Restart Quiz</div>
+            <button class="rbtn" id="restart_btn">Restart Quiz</button>
         </Header>
         <br>
-        <main class="main">
+        <main>
             <div id="starting_point">
                 <div id="title">
                     <h1>Basic Coding Quiz</h1>
                 </div>
-                <div>
-                    <p>This is a 5 questions quiz with a 7 minutes time limit. "Make sure to answer the following questions within the time limit!"</p>
-                    <button class="sbtn" id="start_btn">Start Quiz</button>
+                <div class="main">
+                    <div id="q-and-ans" class="hide" >
+                        <div id="question">Question</div>
+                        <!-- <p>This is a 5 questions quiz with a 7 minutes time limit. "Make sure to answer the following questions within the time limit!"</p> -->
+                        <div id="answer_btns" class="abtn_features">
+                            <button class="btn">Answer</button>
+                            <button class="btn">Answer</button>
+                            <button class="btn">Answer</button>
+                            <button class="btn">Answer</button>
+                        </div>
+                    </div>
+                
+                    <br>
+                    <div id="btn_ctrl">
+                        <button id="start_btn" class="sbtn">Start Quiz</button>
+                        <button class="nbtn btn hide" id="next_btn">Next</button>
+                    </div>
                 </div>
             </div>
         </main>
