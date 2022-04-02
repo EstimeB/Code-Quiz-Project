@@ -27,7 +27,7 @@ body {
 }
 #next_btn {
     position: relative;
-    left: 37%;
+    left: 14%;
     background-color: rgb(152, 153, 207);
     padding: 7px;
     width: 25%;
@@ -47,13 +47,14 @@ body {
     padding: 7px;
     width: 50%;
 }
-#abtn:hover {
-    background-color: rgb(124, 124, 202);
+:root {
+    --hue-wrong: 0;
+    --hue-correct: 145;
 }
-#abtn.correct {
+.abtn_features {
     --hue: var(--hue-correct);
 }
-#abtn.wrong {
+.abtn_features {
     --hue: var(--hue-wrong);
 }
 #title {

@@ -107,7 +107,6 @@ nextButton.addEventListener('click', () => {
 // The quiz's functions
 //Initiate the quiz
 function startQuiz() {
-    console.log('stared');
     // Initiate the timer
     interval = setInterval(function () {
         timeLeft++;
@@ -116,16 +115,18 @@ function startQuiz() {
     }, 1000);
 
     // To hide start button once clicked
-    startBtn.classList.add('hide');
+    startBtn.style.visibility = 'hidden';
+
     displayRandomQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
-    qaContainerEl.classList.remove('hide');
+    // Render next button vissible after the start button is clicked and the first question/answers are displayed
+    nextButton.style.visibility = 'visible';
     setNextQuestion();
 
 }
 
 let selectAnswer = [];
-let question = [];
+// let question = [];
 
 // Display the quiz
 function setNextQuestion() {
@@ -134,6 +135,20 @@ function setNextQuestion() {
 
     displayQuestion(displayRandomQuestions[currentQuestionIndex]);
 }
+
+let scoreQuestion = 0;
+
+qaContainerEl.addEventListener('click', function(event) {
+    console.log(event.target.textContent);
+    if (event.target.textContent === questions[currentQuestionIndex].answers.correct) {
+        scoreQuestion++;
+    } else {
+        scoreQuestion--;
+    }
+    console.log(event);
+})
+
+
 // Display the questions
 function displayQuestion(question) {
     questionEl.innerText = question.question;
@@ -145,8 +160,8 @@ function displayQuestion(question) {
         if (answer.correct) {
             button.dataset.correct = answer.correct;
         }
-        button.addEventListener('click', selectAnswer);
-        answerEl.appendChil(button);
+        // button.addEventListener('click', selectAnswer);
+        answerEl.appendChild(button);
 
     })
 }
@@ -154,14 +169,13 @@ function displayQuestion(question) {
 // // To clear out everything for to the next question
 function resetState() {
 //     clearStatusClass(document.body);
-    nextButton.classList.add('hide');
+    // nextButton.style.visibility = 'hidden';*******
     while (answerEl.firstChild) {
         answerEl.removeChild(answerEl.firstChild);
     }
-
 }
 
-// // Display the answers
+// // Display the quiz's answers
 function displayQuizAnswers(slction) {
     let selectbtn = slction.target;
     let correct = selectbtn.dataset.correct;
@@ -169,35 +183,66 @@ function displayQuizAnswers(slction) {
     Array.from(answerEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
     })
-    if (displayRandomQuestions.lenght > currentQuestionIndex + 1) {
-        nextButton.classList.remove('hide');
+    if (displayRandomQuestions.length > currentQuestionIndex + 1) {
+        nextButton.style.visibility = 'visible';
     } else {
         startBtn.innerText = 'restart';
-        startBtn.classList.remove('hide');
+        startBtn.style.visibility = 'visible';
+        nextButton.style.visibility = 'hidden';
     }
    
 }
 
-function setStatusClass(element, correct) {
-    clearStatusClass(element);
-    if (correct) {
-        element.classList.add('correct');
-    } else {
-        element.classList.add('wrong');
+// function setStatusClass(element, correct) {
+//     clearStatusClass(element);
+//     if (correct) {
+//         element.classList.add('correct');
+//     } else {
+//         element.classList.add('wrong');
+//     }
+// }
+
+// function clearStatusClass(element) {
+//     element.classList.remove('correct');
+//     element.classList.remove('wrong');
+// }
+
+// To bring the quiz to its starting point.
+// function takeQuizToInitialPage() {
+
+// }
+
+function endQuiz() {
+    let question = 0;
+    if (question > questions.length) { 
+        // stop the timer
+        clearInterval(interval);
+        // resetState();
+        // let qaContainerEl = prompt("")
+    }
+    if (totalSeconds === 0) {
+        resetState();
     }
 }
 
-function clearStatusClass(element) {
-    element.classList.remove('correct');
-    element.classList.remove('wrong');
+// Player input form function
+function playerInputForm() {
+
 }
+
+
 
 // // // Storing highscores
 // localStorage.setItem('highscores', JSON.stringify(highscores));
+
 // // // displayHighscoresPage();
 // initialsInput.value = '';
 
-
 // Restarting the quiz
-// let restart = document.getElementById('restart_btn');
-// restartLink.addEventListener()
+let restart = document.getElementById('restart_btn');
+restart.addEventListener('click', function restartQuiz() {
+    // clearInterval();
+    resetState();
+    nextButton.style.visibility = 'hidden';
+    startBtn.style.visibility = 'visible';
+})
