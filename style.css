@@ -1,11 +1,13 @@
 body {
     background-color: rgb(200, 220, 226);
 }
+
 .header {
     padding: 30px;
     background-color: rgb(152, 153, 207);
     font-size: 18px;
 }
+
 #starting_point {
     border: solid;
     border-width: 2px;
@@ -18,6 +20,7 @@ body {
     flex: 1 1 auto;
 
 }
+
 .sbtn {
     position: relative;
     left: 37%;
@@ -25,6 +28,7 @@ body {
     padding: 7px;
     width: 25%;
 }
+
 #next_btn {
     position: relative;
     left: 14%;
@@ -32,6 +36,7 @@ body {
     padding: 7px;
     width: 25%;
 }
+
 .rbtn {
     font-size: 18px;
     position: relative;
@@ -40,6 +45,7 @@ body {
     float: right;
     background-color: rgb(124, 124, 202);
 }
+
 .abtn_features {
     display: grid;
     gap: 6px;
@@ -47,19 +53,19 @@ body {
     padding: 7px;
     width: 50%;
 }
-:root {
-    --hue-wrong: 0;
-    --hue-correct: 145;
+
+.abtn_correct {
+    background-color: green;
 }
-.abtn_features {
-    --hue: var(--hue-correct);
+
+.abtn_wrong {
+    background-color: red;
 }
-.abtn_features {
-    --hue: var(--hue-wrong);
-}
+
 #title {
     text-align: center;
 }
+
 #q-and-ans {
     text-align: center;
 }

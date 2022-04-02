@@ -5,10 +5,11 @@ let qaContainerEl = document.getElementById('q-and-ans');
 let startBtn = document.getElementById('start_btn');
 let highscores = document.getElementById('highscores');
 let remainingTime = document.getElementById('time_display');
-// let startingPoint = document.getElementById('starting_point');
 let nextButton = document.getElementById('next_btn');
 
 let displayRandomQuestions, currentQuestionIndex;
+let scorePlayerEl = document.getElementById('score_player');
+scorePlayerEl.style.display ="none"
 
 // Questions'/Answers' list/array
 let questions = [
@@ -57,51 +58,21 @@ let questions = [
     }
 ];
 
-// The time's functions
-let timeLeft = 0;
-let totalSeconds = 420;
-
-// logic to format the seconds of the timer
-function formatSecond() {
-    let secondLeft = (totalSeconds - timeLeft) % 60;
-    let configuredSeconds;
-
-    if (secondLeft < 10) {
-        configuredSeconds = '0' + secondLeft;
-    } else {
-        configuredSeconds = secondLeft;
-    };
-
-    if (timeLeft >= totalSeconds) {
-        return 0;
-    }
-    return configuredSeconds;
-}
-
-// logic to format the minutes of the timer
-function formatMinute() {
-    // Subtracting time left from total seconds
-    let secondLeft = totalSeconds - timeLeft;
-    let minuteLeft = Math.floor(secondLeft / 60);
-    let configuredMinutes = minuteLeft;
-    return configuredMinutes;
-}
-
-// Display countdown time (incorporating formated seconds and minutes)
-function countdown() {
-    // how time will be displayed
-    remainingTime.textContent = '0' + formatMinute() + ':' + formatSecond();
-
-    if (timeLeft >= totalSeconds) {
-        clearInterval(interval);
-        remainingTime.textContent = '00:00'
-    }
-}
+let totalSeconds = questions.length * 30;
 
 startBtn.addEventListener('click', startQuiz);
 nextButton.addEventListener('click', () => {
+    if(currentQuestionIndex < questions.length - 1){
     currentQuestionIndex++
     setNextQuestion();
+    }else{
+        nextButton.style.visibility = 'hidden';
+        resetState();
+        clearInterval(interval);
+        remainingTime.textContent = "You've completed the quiz!" + totalSeconds + "left";
+        scorePlayerEl.style.display ="block"
+        document.getElementById('score').textContent = totalSeconds+scoreQuestion+"Finale Score"
+    }
 })
 
 // The quiz's functions
@@ -109,8 +80,16 @@ nextButton.addEventListener('click', () => {
 function startQuiz() {
     // Initiate the timer
     interval = setInterval(function () {
-        timeLeft++;
-        countdown();
+       remainingTime.textContent = totalSeconds;
+       if (totalSeconds > 0){
+           totalSeconds--;
+       } else {
+            resetState();
+           clearInterval(interval);
+           remainingTime.textContent = 'Time up'
+           scorePlayerEl.style.display ="block"
+            document.getElementById('score').textContent = totalSeconds+scoreQuestion+" is your Finale Score"
+       }
 
     }, 1000);
 
@@ -126,7 +105,6 @@ function startQuiz() {
 }
 
 let selectAnswer = [];
-// let question = [];
 
 // Display the quiz
 function setNextQuestion() {
@@ -139,13 +117,16 @@ function setNextQuestion() {
 let scoreQuestion = 0;
 
 qaContainerEl.addEventListener('click', function(event) {
-    console.log(event.target.textContent);
-    if (event.target.textContent === questions[currentQuestionIndex].answers.correct) {
+    console.log(event.target.textContent, event.target.getAttribute('data-answer'));
+    if (event.target.getAttribute('data-answer') == "true") {
         scoreQuestion++;
+        event.target.classList.add('abtn_correct');
     } else {
         scoreQuestion--;
+        event.target.classList.add('abtn_wrong')
+        totalSeconds -= 30 // totalSeconda = totalSeconds - 30
     }
-    console.log(event);
+    console.log(totalSeconds, "Score",scoreQuestion);
 })
 
 
@@ -156,20 +137,19 @@ function displayQuestion(question) {
         let button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
-        // for only if the answer is correct to prevent confusion
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-        }
-        // button.addEventListener('click', selectAnswer);
+        button.setAttribute("data-answer",answer.correct)
+        button.dataset.correct = answer.correct;
         answerEl.appendChild(button);
 
     })
 }
 
+function checkAswer() {
+    let userAnswer = this.getAttribute('#')
+    console.log(userAnswer, onclick)
+}
 // // To clear out everything for to the next question
 function resetState() {
-//     clearStatusClass(document.body);
-    // nextButton.style.visibility = 'hidden';*******
     while (answerEl.firstChild) {
         answerEl.removeChild(answerEl.firstChild);
     }
@@ -179,7 +159,6 @@ function resetState() {
 function displayQuizAnswers(slction) {
     let selectbtn = slction.target;
     let correct = selectbtn.dataset.correct;
-    setStatusClass(document.body, correct);
     Array.from(answerEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
     })
@@ -192,51 +171,6 @@ function displayQuizAnswers(slction) {
     }
    
 }
-
-// function setStatusClass(element, correct) {
-//     clearStatusClass(element);
-//     if (correct) {
-//         element.classList.add('correct');
-//     } else {
-//         element.classList.add('wrong');
-//     }
-// }
-
-// function clearStatusClass(element) {
-//     element.classList.remove('correct');
-//     element.classList.remove('wrong');
-// }
-
-// To bring the quiz to its starting point.
-// function takeQuizToInitialPage() {
-
-// }
-
-function endQuiz() {
-    let question = 0;
-    if (question > questions.length) { 
-        // stop the timer
-        clearInterval(interval);
-        // resetState();
-        // let qaContainerEl = prompt("")
-    }
-    if (totalSeconds === 0) {
-        resetState();
-    }
-}
-
-// Player input form function
-function playerInputForm() {
-
-}
-
-
-
-// // // Storing highscores
-// localStorage.setItem('highscores', JSON.stringify(highscores));
-
-// // // displayHighscoresPage();
-// initialsInput.value = '';
 
 // Restarting the quiz
 let restart = document.getElementById('restart_btn');
