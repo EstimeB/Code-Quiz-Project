@@ -129,7 +129,6 @@ qaContainerEl.addEventListener('click', function(event) {
         event.target.classList.add('abtn_wrong');
         totalSeconds -= 30 // totalSeconda = totalSeconds - 30
     }
-    console.log(totalSeconds, "Score",scoreQuestion);
 }
 })
 
@@ -147,10 +146,6 @@ function displayQuestion(question) {
     })
 }
 
-function checkAswer() {
-    let userAnswer = this.getAttribute('#');
-    console.log(userAnswer, onclick);
-}
 // // To clear out everything for to the next question
 function resetState() {
     while (answerEl.firstChild) {
@@ -178,14 +173,12 @@ function displayQuizAnswers(slction) {
 // Restarting the quiz
 let restart = document.getElementById('restart_btn');
 restart.addEventListener('click', function restartQuiz() {
-    // clearInterval();
     resetState();
     nextButton.style.visibility = 'hidden';
     startBtn.style.visibility = 'visible';
     scorePlayerEl.style.visibility = 'hidden';
     document.getElementById('highscore').style.visibility = 'hidden';
 })
-console.log(restart, onclick);
 
 // Score Keeping
 document.getElementById('save-user').addEventListener('click', function(){
