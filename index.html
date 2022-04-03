@@ -13,9 +13,9 @@
     <div class="body">
         <header class="header">
             <div class="highscore_link">
-                <a id="highscore_link" href="#">Highscores</a>
+                <a id="highscore_link" href="scoreKeeping.html">Highscores</a>
             </div>
-            <div id="time">Remaining Time: <span id="time_display">07:00</span></div>
+            <div id="time">Remaining Time: <span id="time_display">150 Seconds</span></div>
             <button class="rbtn" id="restart_btn">Restart Quiz</button>
         </header>
         <br>
@@ -24,18 +24,18 @@
                 <div id="title">
                     <h1>Basic Coding Quiz</h1>
                 </div>
-                <div class="main">
+                <div>
                     <div id="q-and-ans" class="hide" >
-                        <div id="question">This is a 5 questions quiz with a 7 minutes time limit. Make sure to answer the following questions within the time limit!</div>
+                        <div id="question">This is a 5 questions quiz with a 30 seconds limit per question, and 30 seconds is deducted with every wrong answers. Make sure to answer the following questions within the time limit!</div>
                         <div id="answer_btns" class="abtn_features"></div>
                         
                     </div>
                 <div id="score_player">
                     <h3 id="score"></h3>
                     <input id="playerInputForm"></input>
-                    <button id="save-user">Save User Score</button>
+                    <button id="save-user">Save score</button>
                 </div>
-                
+                <a id="highscore" href="./scoreKeeping.html">Check High Scores</a>
                     <br>
                     <div id="btn_ctrl">
                         <button id="start_btn" class="sbtn">Start Quiz</button>

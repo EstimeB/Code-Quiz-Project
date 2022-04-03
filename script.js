@@ -3,13 +3,14 @@ let questionEl = document.getElementById('question');
 let answerEl = document.getElementById('answer_btns');
 let qaContainerEl = document.getElementById('q-and-ans');
 let startBtn = document.getElementById('start_btn');
-let highscores = document.getElementById('highscores');
 let remainingTime = document.getElementById('time_display');
 let nextButton = document.getElementById('next_btn');
 
 let displayRandomQuestions, currentQuestionIndex;
 let scorePlayerEl = document.getElementById('score_player');
-scorePlayerEl.style.display ="none"
+scorePlayerEl.style.display = "none";
+
+document.getElementById('highscore').style.visibility = 'hidden';
 
 // Questions'/Answers' list/array
 let questions = [
@@ -69,26 +70,28 @@ nextButton.addEventListener('click', () => {
         nextButton.style.visibility = 'hidden';
         resetState();
         clearInterval(interval);
-        remainingTime.textContent = "You've completed the quiz!" + totalSeconds + "left";
-        scorePlayerEl.style.display ="block"
-        document.getElementById('score').textContent = totalSeconds+scoreQuestion+"Finale Score"
+        remainingTime.textContent = "You've completed the quiz! " + totalSeconds + " Seconds left";
+        scorePlayerEl.style.display = "block";
+        document.getElementById('score').textContent = scoreQuestion * 10 +" is your Finale Score";
+        qaContainerEl.style.visibility = 'hidden';
     }
 })
 
 // The quiz's functions
 //Initiate the quiz
 function startQuiz() {
+    // alert("")
     // Initiate the timer
     interval = setInterval(function () {
        remainingTime.textContent = totalSeconds;
        if (totalSeconds > 0){
-           totalSeconds--;
+            totalSeconds--;
        } else {
             resetState();
-           clearInterval(interval);
-           remainingTime.textContent = 'Time up'
-           scorePlayerEl.style.display ="block"
-            document.getElementById('score').textContent = totalSeconds+scoreQuestion+" is your Finale Score"
+            clearInterval(interval);
+            remainingTime.textContent = "Time's up!";
+            scorePlayerEl.style.display = 'block';
+            document.getElementById('score').textContent = totalSeconds+scoreQuestion+" is your Finale Score";
        }
 
     }, 1000);
@@ -110,7 +113,6 @@ let selectAnswer = [];
 function setNextQuestion() {
     // Reset everything to default state to get to the next question
     resetState();
-
     displayQuestion(displayRandomQuestions[currentQuestionIndex]);
 }
 
@@ -118,17 +120,18 @@ let scoreQuestion = 0;
 
 qaContainerEl.addEventListener('click', function(event) {
     console.log(event.target.textContent, event.target.getAttribute('data-answer'));
+    if(event.target.type="BUTTON") {
     if (event.target.getAttribute('data-answer') == "true") {
         scoreQuestion++;
         event.target.classList.add('abtn_correct');
     } else {
         scoreQuestion--;
-        event.target.classList.add('abtn_wrong')
+        event.target.classList.add('abtn_wrong');
         totalSeconds -= 30 // totalSeconda = totalSeconds - 30
     }
     console.log(totalSeconds, "Score",scoreQuestion);
+}
 })
-
 
 // Display the questions
 function displayQuestion(question) {
@@ -137,7 +140,7 @@ function displayQuestion(question) {
         let button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
-        button.setAttribute("data-answer",answer.correct)
+        button.setAttribute("data-answer",answer.correct);
         button.dataset.correct = answer.correct;
         answerEl.appendChild(button);
 
@@ -145,8 +148,8 @@ function displayQuestion(question) {
 }
 
 function checkAswer() {
-    let userAnswer = this.getAttribute('#')
-    console.log(userAnswer, onclick)
+    let userAnswer = this.getAttribute('#');
+    console.log(userAnswer, onclick);
 }
 // // To clear out everything for to the next question
 function resetState() {
@@ -179,4 +182,20 @@ restart.addEventListener('click', function restartQuiz() {
     resetState();
     nextButton.style.visibility = 'hidden';
     startBtn.style.visibility = 'visible';
+    scorePlayerEl.style.visibility = 'hidden';
+    document.getElementById('highscore').style.visibility = 'hidden';
+})
+console.log(restart, onclick);
+
+// Score Keeping
+document.getElementById('save-user').addEventListener('click', function(){
+    let userName = document.getElementById('playerInputForm').value;
+    let previousScore = JSON.parse(localStorage.getItem('highScore'))  || []
+    previousScore.push({
+        user :  userName,
+        score: totalSeconds + scoreQuestion
+    })
+    localStorage.setItem('highScore', JSON.stringify(previousScore))
+    scorePlayerEl.style.visibility = "hidden";
+    document.getElementById('highscore').style.visibility = 'visible';
 })

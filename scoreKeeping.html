@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Score</title>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Scores:</th>
+            </tr>
+        </thead>
+        <tbody id="data"></tbody>
+    </table>
+    <br>
+    <a id="return" href="index.html">Return to the Quiz Page</a>
+    <script>
+    let previousScore = JSON.parse(localStorage.getItem('highScore'))  || []
+    let htmlCode =""
+    for(let i=0;i<previousScore.length;i++){
+        htmlCode += `
+        <tr><td>${previousScore[i].user}</td><td>${previousScore[i].score}</tr>
+        ` //Template literals
+    }
+    document.getElementById("data").innerHTML =   htmlCode;
+    </script>
+</body>
+</html>
