@@ -10,6 +10,8 @@ The quiz consist of 5 questions, users have 30 seconds to answer a question, 150
 
 ## Demo
 
+https://estimeb.github.io/Code-Quiz-Project/ 
+
 ![IMG_0859](https://user-images.githubusercontent.com/101056987/161434264-673ce3de-1697-41e8-bcf8-3ea41170baa5.jpg)
 ![IMG_0860](https://user-images.githubusercontent.com/101056987/161434270-faf88a45-a39e-4186-8e6d-b3dba4f38425.jpg)
 ![IMG_0861](https://user-images.githubusercontent.com/101056987/161434276-800b7444-b6ea-4715-a424-23548b022a88.jpg)
